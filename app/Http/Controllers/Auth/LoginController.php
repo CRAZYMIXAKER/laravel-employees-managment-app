@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
+//wapabikiwe@mailinator.com
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -27,6 +28,9 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    protected $maxAttempts = 3;
+    protected $decayMinutes = 3;
 
     /**
      * Create a new controller instance.
