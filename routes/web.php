@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,12 +31,21 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('users', UserController::class);
-    Route::post(
-        'users/{user}/change-password',
-        [ChangePasswordController::class, 'changePassword']
-    )->name('users.change.password');
     Route::resource('countries', CountryController::class);
     Route::resource('states', StateController::class);
     Route::resource('cities', CityController::class);
     Route::resource('departments', DepartmentController::class);
+    Route::post(
+        'users/{user}/change-password',
+        [ChangePasswordController::class, 'changePassword']
+    )->name('users.change.password');
 });
+
+//Route::get('{any}', function () {
+//    return view('employees.index');
+//})->where('{any}', '.*');
+
+Route::any('{all}', function () {
+    $user = Auth::user();
+    return view('employees.index')->with(compact('user'));
+})->where(['all' => '.*']);
