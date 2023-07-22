@@ -60,7 +60,7 @@ class StateController extends Controller
 
         return redirect()->route('states.index')->with(
             'message',
-            'Country Updated Successfully'
+            'State Updated Successfully'
         );
     }
 

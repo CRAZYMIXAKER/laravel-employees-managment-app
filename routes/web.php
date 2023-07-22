@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\ChangePasswordController;
+use App\Http\Controllers\Backend\CityController;
 use App\Http\Controllers\Backend\CountryController;
 use App\Http\Controllers\Backend\StateController;
 use App\Http\Controllers\Backend\UserController;
@@ -34,4 +35,5 @@ Route::middleware(['auth'])->group(function () {
     )->name('users.change.password');
     Route::resource('countries', CountryController::class);
     Route::resource('states', StateController::class);
+    Route::resource('cities', CityController::class);
 });
