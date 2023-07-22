@@ -8,7 +8,7 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">
-                            Create Employees
+                            Create Employee
                             <router-link :to="{name: 'employees.index'}" class="float-right">
                                 Employees
                             </router-link>
@@ -87,9 +87,18 @@
                                     <div class="col-md-6">
                                         <select
                                             id="country"
+                                            v-model="form.country_id"
+                                            :value="form.country_id"
                                             class="form-select"
-                                            name="country">
-                                            <option selected>Choose Country</option>
+                                            name="country"
+                                            @change="getStates()">
+                                            <option disabled value="">Choose Country</option>
+                                            <option
+                                                v-for="country in countries"
+                                                :key="country.id"
+                                                :value="country.id">
+                                                {{ country.name }}
+                                            </option>
                                         </select>
                                         <!--                                        <span class="invalid-feedback" role="alert">-->
                                         <!--                                            <strong>{{ $message }}</strong>-->
@@ -103,9 +112,18 @@
                                     <div class="col-md-6">
                                         <select
                                             id="state"
+                                            v-model="form.state_id"
+                                            :value="form.state_id"
                                             class="form-select"
-                                            name="state">
-                                            <option selected>Choose State</option>
+                                            name="state"
+                                            @change="getCities()">
+                                            <option disabled value="">Choose State</option>
+                                            <option
+                                                v-for="state in states"
+                                                :key="state.id"
+                                                :value="state.id">
+                                                {{ state.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -120,9 +138,18 @@
                                     <div class="col-md-6">
                                         <select
                                             id="department"
+                                            v-model="form.department_id"
+                                            :value="form.department_id"
                                             class="form-select"
-                                            name="department">
-                                            <option selected>Choose Department</option>
+                                            name="department"
+                                            @change="">
+                                            <option disabled value="">Choose Department</option>
+                                            <option
+                                                v-for="department in departments"
+                                                :key="department.id"
+                                                :value="department.id">
+                                                {{ department.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -137,9 +164,18 @@
                                     <div class="col-md-6">
                                         <select
                                             id="city"
+                                            v-model="form.city_id"
+                                            :value="form.city_id"
                                             class="form-select"
-                                            name="city">
-                                            <option selected>Choose City</option>
+                                            name="city"
+                                            @change="">
+                                            <option selected value="">Choose City</option>
+                                            <option
+                                                v-for="city in cities"
+                                                :key="city.id"
+                                                :value="city.id">
+                                                {{ city.name }}
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -165,7 +201,7 @@
                                         Birthdate
                                     </label>
                                     <div class="col-md-6">
-                                        <VueDatePicker v-model="birthdate"/>
+                                        <VueDatePicker v-model="form.birthdate"/>
                                     </div>
                                 </div>
 
@@ -174,7 +210,7 @@
                                         Date Hired
                                     </label>
                                     <div class="col-md-6">
-                                        <VueDatePicker v-model="dateHired"/>
+                                        <VueDatePicker v-model="form.date_hired"/>
                                     </div>
                                 </div>
 
@@ -197,9 +233,62 @@
 export default {
     data() {
         return {
-            birthdate: null,
-            dateHired: null,
+            countries: [],
+            states: [],
+            departments: [],
+            cities: [],
+            form: {
+                first_name: '',
+                middle_name: '',
+                last_name: '',
+                address: '',
+                country_id: '',
+                state_id: '',
+                department_id: '',
+                city_id: '',
+                zip_code: '',
+                birthdate: null,
+                date_hired: null,
+            },
         };
+    },
+    created() {
+        this.getCountries();
+        this.getDepartments();
+    },
+    methods: {
+        getCountries() {
+            axios.get('/api/employees/countries')
+                .then(res => {
+                    this.countries = res.data;
+                }).catch(error => {
+                console.log('console.error');
+            });
+        },
+        getStates() {
+            axios.get(`/api/employees/${this.form.country_id}/states`)
+                .then(res => {
+                    this.states = res.data;
+                }).catch(error => {
+                console.log('console.error');
+            });
+        },
+        getCities() {
+            axios.get(`/api/employees/${this.form.country_id}/states`)
+                .then(res => {
+                    this.cities = res.data;
+                }).catch(error => {
+                console.log('console.error');
+            });
+        },
+        getDepartments() {
+            axios.get(`/api/employees/departments`)
+                .then(res => {
+                    this.departments = res.data;
+                }).catch(error => {
+                console.log('console.error');
+            });
+        },
     },
 };
 </script>
