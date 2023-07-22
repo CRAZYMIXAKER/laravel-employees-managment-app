@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Cities</h1>
+        <h1 class="h3 mb-0 text-gray-800">Departments</h1>
     </div>
     <div class="card mx-auto">
         <div>
@@ -14,7 +14,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col">
-                    <form method="GET" action="{{ route('cities.index') }}">
+                    <form method="GET" action="{{ route('departments.index') }}">
                         <div class="form-row align-items-center">
                             <div class="col">
                                 <input
@@ -22,7 +22,7 @@
                                     type="search"
                                     class="form-control mb-2"
                                     id="inlineFormInput"
-                                    placeholder="Tirana">
+                                    placeholder="Department">
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary mb-2">Search</button>
@@ -31,7 +31,7 @@
                     </form>
                 </div>
                 <div class="col">
-                    <a href="{{ route('cities.create') }}" class="btn btn-primary float-right">Create</a>
+                    <a href="{{ route('departments.create') }}" class="btn btn-primary float-right">Create</a>
                 </div>
             </div>
         </div>
@@ -40,18 +40,17 @@
                 <thead>
                 <tr>
                     <th scope="col">#Id</th>
-                    <th scope="col">State Name</th>
                     <th scope="col">Name</th>
                     <th scope="col">Manage</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($cities as $city)
+                @foreach($departments as $department)
                     <tr>
-                        <th scope="row">{{ $city->id }}</th>
-                        <td>{{ $city->state->name }}</td>
-                        <td>{{ $city->name }}</td>
-                        <td><a href="{{ route('cities.edit', $city->id) }}" class="btn btn-success">Edit</a></td>
+                        <th scope="row">{{ $department->id }}</th>
+                        <td>{{ $department->name }}</td>
+                        <td><a href="{{ route('departments.edit', $department->id) }}" class="btn btn-success">Edit</a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>
