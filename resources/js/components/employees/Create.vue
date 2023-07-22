@@ -15,7 +15,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form>
+                            <form @submit.prevent="storeEmployee">
                                 <div class="row mb-3">
                                     <label
                                         class="col-md-4 col-form-label text-md-end"
@@ -27,6 +27,7 @@
                                         <!--is-invalid-->
                                         <input
                                             id="first_name"
+                                            v-model="form.first_name"
                                             class="form-control"
                                             required
                                             type="text">
@@ -43,6 +44,7 @@
                                     <div class="col-md-6">
                                         <input
                                             id="middle_name"
+                                            v-model="form.middle_name"
                                             class="form-control"
                                             required
                                             type="text">
@@ -59,6 +61,7 @@
                                     <div class="col-md-6">
                                         <input
                                             id="last_name"
+                                            v-model="form.last_name"
                                             class="form-control"
                                             required
                                             type="text">
@@ -75,6 +78,7 @@
                                     <div class="col-md-6">
                                         <input
                                             id="address"
+                                            v-model="form.address"
                                             class="form-control"
                                             required
                                             type="text">
@@ -141,8 +145,7 @@
                                             v-model="form.department_id"
                                             :value="form.department_id"
                                             class="form-select"
-                                            name="department"
-                                            @change="">
+                                            name="department">
                                             <option disabled value="">Choose Department</option>
                                             <option
                                                 v-for="department in departments"
@@ -169,7 +172,7 @@
                                             class="form-select"
                                             name="city"
                                             @change="">
-                                            <option selected value="">Choose City</option>
+                                            <option disabled value="">Choose City</option>
                                             <option
                                                 v-for="city in cities"
                                                 :key="city.id"
@@ -190,6 +193,7 @@
                                     <div class="col-md-6">
                                         <input
                                             id="zip_code"
+                                            v-model="form.zip_code"
                                             class="form-control"
                                             required
                                             type="text">
@@ -230,6 +234,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
     data() {
         return {
@@ -274,7 +280,7 @@ export default {
             });
         },
         getCities() {
-            axios.get(`/api/employees/${this.form.country_id}/states`)
+            axios.get(`/api/employees/${this.form.state_id}/cities`)
                 .then(res => {
                     this.cities = res.data;
                 }).catch(error => {
@@ -288,6 +294,30 @@ export default {
                 }).catch(error => {
                 console.log('console.error');
             });
+        },
+        storeEmployee() {
+            axios.post('/api/employees', {
+                first_name: this.form.first_name,
+                middle_name: this.form.middle_name,
+                last_name: this.form.last_name,
+                address: this.form.address,
+                country_id: this.form.country_id,
+                state_id: this.form.state_id,
+                department_id: this.form.department_id,
+                city_id: this.form.city_id,
+                zip_code: this.form.zip_code,
+                birthdate: this.formatDate(this.form.birthdate),
+                date_hired: this.formatDate(this.form.date_hired),
+            }).then(res => {
+                console.log(res);
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        formatDate(value) {
+            if (value) {
+                return moment(String(value)).format('YYYYMMDD');
+            }
         },
     },
 };
