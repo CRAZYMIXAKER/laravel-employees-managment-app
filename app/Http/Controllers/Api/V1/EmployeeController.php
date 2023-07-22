@@ -15,9 +15,24 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $query = Employee::query();
+
+        if ($request->search) {
+            $search = $request->search;
+            $query->where(static function ($query) use ($search) {
+                $query
+                    ->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->department_id) {
+            $query->where('department_id', $request->department_id);
+        }
+
+        $employees = $query->get();
 
         return EmployeeResource::collection($employees);
     }
