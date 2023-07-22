@@ -309,7 +309,7 @@ export default {
                 birthdate: this.formatDate(this.form.birthdate),
                 date_hired: this.formatDate(this.form.date_hired),
             }).then(res => {
-                console.log(res);
+                this.$router.push({ name: 'employees.index' });
             }).catch(error => {
                 console.log(error);
             });

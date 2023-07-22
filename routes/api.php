@@ -37,4 +37,4 @@ Route::get(
     [EmployeeDataController::class, 'cities']
 );
 
-Route::post('/employees', [EmployeeController::class, 'store']);
+Route::apiResource('employees', EmployeeController::class);
