@@ -16,20 +16,24 @@
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input
-                                        name="search"
-                                        type="search"
-                                        class="form-control mb-2"
                                         id="inlineFormInput"
-                                        placeholder="Jane Doe">
+                                        class="form-control mb-2"
+                                        name="search"
+                                        placeholder="Jane Doe"
+                                        type="search">
                                 </div>
                                 <div class="col">
-                                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                                    <button class="btn btn-primary mb-2" type="submit">Search</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col">
-                        <a href="" class="btn btn-primary float-right">Create</a>
+                        <router-link
+                            :to="{name: 'employees.create'}"
+                            class="btn btn-primary float-right">
+                            Create
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -38,8 +42,10 @@
                     <thead>
                     <tr>
                         <th scope="col">#Id</th>
-                        <th scope="col">Country Code</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Department</th>
                         <th scope="col">Manage</th>
                     </tr>
                     </thead>
@@ -49,8 +55,10 @@
                         <th scope="row"></th>
                         <td></td>
                         <td></td>
+                        <td></td>
+                        <td></td>
                         <td>
-                            <a href="" class="btn btn-success">Edit</a>
+                            <a class="btn btn-success" href="">Edit</a>
                         </td>
                     </tr>
 
@@ -63,9 +71,7 @@
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

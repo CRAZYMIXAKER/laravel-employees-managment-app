@@ -6,17 +6,17 @@ import EmployeeEdit from '../components/employees/Edit.vue';
 const routes = [
     {
         path: '/employees',
-        name: 'employee.index',
+        name: 'employees.index',
         component: EmployeeIndex,
     },
     {
         path: '/employees/create',
-        name: 'employee.create',
+        name: 'employees.create',
         component: EmployeeCreate,
     },
     {
         path: '/employees/:id',
-        name: 'employee.edit',
+        name: 'employees.edit',
         component: EmployeeEdit,
     },
     // {

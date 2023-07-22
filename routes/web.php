@@ -47,5 +47,5 @@ Route::middleware(['auth'])->group(function () {
 
 Route::any('{all}', function () {
     $user = Auth::user();
-    return view('employees.index')->with(compact('user'));
+    return view('vue')->with(compact('user'));
 })->where(['all' => '.*']);

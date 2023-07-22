@@ -14,9 +14,10 @@
         "sass": "^1.56.1",
         "sass-loader": "^13.3.2",
         "vite": "^4.0.0",
-        "vue": "^3.2.37"
+        "vue": "^3.3.4"
     },
     "dependencies": {
+        "@vuepic/vue-datepicker": "^5.4.0",
         "vue-axios": "^3.5.2",
         "vue-router": "^4.2.4"
     }
